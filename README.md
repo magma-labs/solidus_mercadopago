@@ -1,7 +1,7 @@
 Solidus Mercado Pago Payment Method.
 =================================
-[![Build Status](https://circleci.com/gh/magma-labs/solidus_mercadopago)](https://circleci.com/gh/magma-labs/solidus_mercadopago)
 
+[![Circle CI](https://circleci.com/gh/magma-labs/solidus_mercadopago/tree/master.svg?style=shield)](https://circleci.com/gh/magma-labs/solidus_mercadopago/tree/master)
 
 This project is a fork from [spree version maintained by ngelx](https://github.com/ngelx/solidus_mercadopago).
 
