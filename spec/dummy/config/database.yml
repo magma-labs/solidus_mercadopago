@@ -1,0 +1,12 @@
+
+
+development:
+  adapter: sqlite3
+  database: db/solidus_development.sqlite3
+test:
+  adapter: sqlite3
+  database: db/solidus_test.sqlite3
+production:
+  adapter: sqlite3
+  database: db/solidus_production.sqlite3
+
