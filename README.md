@@ -35,7 +35,7 @@ These values can be obtained by logging in to your Mercado Pago account, going t
 Payment methods can accept preferences either directly entered in admin.
 
 1. Visit `/admin/payment_methods/new`
-2. Set `Mercado pago` as provider.
+2. Set `Mercadopago` as provider.
 3. Save to update the form
 4. Set your credentials into the corresponding fields
 

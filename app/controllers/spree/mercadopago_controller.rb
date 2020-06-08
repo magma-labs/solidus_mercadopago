@@ -12,7 +12,7 @@ module Spree
                              .create!(amount: current_order.total, payment_method: payment_method)
       payment.started_processing!
 
-      preferences = ::Mercadopago::OrderPreferencesBuilder
+      preferences = Mercadopago::Services::OrderPreferencesBuilder
                     .new(current_order, payment, callback_urls)
                     .preferences_hash
 
@@ -43,7 +43,7 @@ module Spree
                      .new(operation_id: params[:id], topic: params[:topic])
 
       if notification.save
-        Mercadopago::HandleReceivedNotification.new(notification).process!
+        Mercadopago::Services::HandleReceivedNotification.new(notification).process!
         status = :ok
       else
         status = :bad_request

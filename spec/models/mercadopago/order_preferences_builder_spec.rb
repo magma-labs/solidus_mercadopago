@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'OrderPreferencesBuilder' do
+describe Mercadopago::OrderPreferencesBuilder do
   # Factory order_with_line_items is incredibly slow..
   let(:order) do
     order = create(:order)
@@ -20,7 +20,12 @@ describe 'OrderPreferencesBuilder' do
   include Spree::ProductsHelper
 
   context 'Calling preferences_hash' do
-    let(:subject) { Mercadopago::OrderPreferencesBuilder.new(order, payment, callback_urls, payer_data).preferences_hash }
+    let(:subject) do
+      Mercadopago::OrderPreferencesBuilder.new(order,
+                                               payment,
+                                               callback_urls,
+                                               payer_data).preferences_hash
+    end
 
     it 'returns external reference' do
     end

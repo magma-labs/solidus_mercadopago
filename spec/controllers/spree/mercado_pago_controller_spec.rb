@@ -10,7 +10,7 @@ describe Spree::MercadopagoController, type: :controller do
       let(:use_case) { double('use_case') }
 
       it 'handles notification and returns success' do
-        allow(Mercadopago::HandleReceivedNotification).to receive(:new).and_return(use_case)
+        allow(Mercadopago::Services::HandleReceivedNotification).to receive(:new).and_return(use_case)
         expect(use_case).to receive(:process!)
 
         post :ipn, params: { id: operation_id, topic: 'payment', format: :json }
