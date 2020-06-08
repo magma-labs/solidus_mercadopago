@@ -3,8 +3,8 @@
 module Spree
   class PaymentMethod::Mercadopago < PaymentMethod
     preference :sandbox, :boolean, default: true
-    preference :client_id, :string, default: ENV['Mercadopago_CLIENT_ID']
-    preference :client_secret, :string, default: ENV['Mercadopago_CLIENT_SECRET']
+    preference :client_id, :string, default: ENV['MERCADOPAGO_CLIENT_ID']
+    preference :client_secret, :string, default: ENV['MERCADOPAGO_CLIENT_SECRET']
 
     def payment_profiles_supported?
       false
