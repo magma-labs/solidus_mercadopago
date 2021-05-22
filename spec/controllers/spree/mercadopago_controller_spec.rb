@@ -6,23 +6,31 @@ describe Spree::MercadopagoController, type: :controller do
   describe '#ipn' do
     let(:operation_id) { 'op123' }
 
-    context 'for valid notifications' do
-      let(:use_case) { double('use_case') }
+    context 'when valid notifications' do
+      let(:use_case) { instance_double('use_case') }
+      let(:notification) { Mercadopago::Notification.order(:created_at).last }
 
-      it 'handles notification and returns success' do
+      before do
         allow(Mercadopago::HandleReceivedNotification).to receive(:new).and_return(use_case)
-        expect(use_case).to receive(:process!)
+        allow(use_case).to receive(:process!)
 
         post :ipn, params: { id: operation_id, topic: 'payment', format: :json }
-        expect(response).to be_ok
+      end
 
-        notification = Mercadopago::Notification.order(:created_at).last
+      it 'returns success' do
+        expect(response).to be_ok
+      end
+
+      it 'handles notification topic' do
         expect(notification.topic).to eq('payment')
+      end
+
+      it 'handles notification operation_id' do
         expect(notification.operation_id).to eq(operation_id)
       end
     end
 
-    context 'for invalid notification' do
+    context 'when invalid notification' do
       it 'responds with invalid request' do
         post :ipn, params: { id: operation_id, topic: 'nonexistent_topic', format: :raw }
         expect(response).to be_bad_request
