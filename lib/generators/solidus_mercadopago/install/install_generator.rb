@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Style/RegexpLiteral
 # rubocop:disable Rails/Output
 
@@ -8,7 +10,8 @@ module SolidusMercadopago
       class_option :auto_skip_migrations, type: :boolean, default: false
 
       def add_javascripts
-        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/solidus_mercadopago\n"
+        append_file 'vendor/assets/javascripts/spree/frontend/all.js',
+          "//= require spree/frontend/solidus_mercadopago\n"
         append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_mercadopago\n"
       end
 
@@ -18,8 +21,10 @@ module SolidusMercadopago
 
         return unless File.exist?(backend_css_file) && File.exist?(frontend_css_file)
 
-        inject_into_file frontend_css_file, " *= require spree/frontend/solidus_mercadopago\n", before: /\*\//, verbose: true
-        inject_into_file backend_css_file, " *= require spree/backend/solidus_mercadopago\n", before: /\*\//, verbose: true
+        inject_into_file frontend_css_file, " *= require spree/frontend/solidus_mercadopago\n", before: /\*\//,
+verbose: true
+        inject_into_file backend_css_file, " *= require spree/backend/solidus_mercadopago\n", before: /\*\//,
+verbose: true
       end
 
       def add_migrations
@@ -44,3 +49,6 @@ module SolidusMercadopago
     end
   end
 end
+
+# rubocop:enable Style/RegexpLiteral
+# rubocop:enable Rails/Output
