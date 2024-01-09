@@ -3,8 +3,8 @@
 module Spree
   class PaymentMethod::Mercadopago < PaymentMethod
     preference :sandbox, :boolean, default: true
-    preference :client_id, :string, default: ENV['Mercadopago_CLIENT_ID']
-    preference :client_secret, :string, default: ENV['Mercadopago_CLIENT_SECRET']
+    preference :client_id, :string, default: ENV.fetch('Mercadopago_CLIENT_ID', nil)
+    preference :client_secret, :string, default: ENV.fetch('Mercadopago_CLIENT_SECRET', nil)
 
     def payment_profiles_supported?
       false
@@ -15,12 +15,13 @@ module Spree
     end
 
     def provider(additional_options = {})
-      @provider ||= begin
-                      options = { sandbox: preferred_sandbox }
-                      client = provider_class.new(self, options.merge(additional_options))
-                      client.authenticate
-                      client
-                    end
+      @provider ||=
+        begin
+          options = { sandbox: preferred_sandbox }
+          client = provider_class.new(self, options.merge(additional_options))
+          client.authenticate
+          client
+        end
     end
 
     def source_required?

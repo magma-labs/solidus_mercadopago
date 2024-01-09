@@ -14,18 +14,28 @@ Gem::Specification.new do |s|
   s.homepage  = 'http://github.com/magma-labs/solidus_mercadopago'
   s.license   = 'BSD-3-Clause'
 
-  s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
-  s.test_files = Dir['test/**/*']
+  s.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      f.match(%r{^(test|spec|features)/})
+    end
+  end
+
+  s.test_files = Dir['spec/**/*']
+  s.bindir = 'exe'
+  s.executables = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  s.require_paths = ['lib']
+
+  s.required_ruby_version = ['>= 2.5', '< 4.0']
 
   s.add_dependency 'rest-client'
-  s.add_dependency 'solidus', ['>= 2.0', '< 3']
-  s.add_dependency 'solidus_auth_devise', ['>= 2.0', '< 3']
-  s.add_dependency 'solidus_support'
-  s.add_dependency 'deface', '~> 1.0'
+  s.add_dependency 'solidus_core', ['>= 3.2', '< 5']
+  s.add_dependency 'solidus_support', '~> 0.5'
 
-  s.add_development_dependency 'coffee-rails'
+  s.add_development_dependency 'solidus_backend'
+  s.add_development_dependency 'solidus_frontend'
+  s.add_development_dependency 'solidus_dev_support', '~> 2.5'
+  s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'capybara-accessible'
   s.add_development_dependency 'poltergeist'
-  s.add_development_dependency 'solidus_dev_support'
   s.add_development_dependency 'webmock'
 end

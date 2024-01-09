@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rest_client'
-require 'mercadopago/client/authentication'
-require 'mercadopago/client/preferences'
-require 'mercadopago/client/api'
+# require 'mercadopago/client/authentication'
+# require 'mercadopago/client/preferences'
+# require 'mercadopago/client/api'
 
 module Mercadopago
   class Client
@@ -13,9 +13,7 @@ module Mercadopago
     include Preferences
     include Api
 
-    attr_reader :errors
-    attr_reader :auth_response
-    attr_reader :preferences_response
+    attr_reader :errors, :auth_response, :preferences_response
 
     def initialize(payment_method, options = {})
       @payment_method = payment_method

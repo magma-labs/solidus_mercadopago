@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'json'
 
 describe Mercadopago::Client, type: :model do
-  SPEC_ROOT = File.expand_path('../', File.dirname(__FILE__))
+  spec_root = File.expand_path('../', File.dirname(__FILE__))
 
   let(:payment_method) { double('payment_method', preferred_client_id: 1, preferred_client_secret: 1) }
 
@@ -13,8 +13,8 @@ describe Mercadopago::Client, type: :model do
   let(:payment_method) { double :payment_method, id: 1, preferred_client_id: 'app id', preferred_client_secret: 'app secret' }
   let(:payment) { double :payment, payment_method: payment_method, id: 1, identifier: 'fruta' }
 
-  let(:login_json_response) { File.open("#{SPEC_ROOT}/../fixtures/authenticated.json").read }
-  let(:preferences_json_response) { File.open("#{SPEC_ROOT}/../fixtures/preferences_created.json").read }
+  let(:login_json_response) { File.read("#{spec_root}/../fixtures/authenticated.json") }
+  let(:preferences_json_response) { File.read("#{spec_root}/../fixtures/preferences_created.json") }
   let(:client) { Mercadopago::Client.new(payment_method) }
 
   describe '#initialize' do
@@ -117,13 +117,14 @@ describe Mercadopago::Client, type: :model do
     context 'on failure' do
       before do
         expect(RestClient).to receive(:post).exactly(2).times do
-          if !@is_second_time
+          if @is_second_time
+            raise RestClient::Exception, 'foo'
+          else
             @is_second_time = true
             '{}'
-          else
-            raise RestClient::Exception, 'foo'
           end
         end
+
         client.authenticate
       end
 

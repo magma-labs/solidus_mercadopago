@@ -22,9 +22,6 @@ describe 'OrderPreferencesBuilder' do
   context 'Calling preferences_hash' do
     let(:subject) { Mercadopago::OrderPreferencesBuilder.new(order, payment, callback_urls, payer_data).preferences_hash }
 
-    it 'returns external reference' do
-    end
-
     it 'sets callback urls' do
       expect(subject).to include(back_urls: callback_urls)
     end

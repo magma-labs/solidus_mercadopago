@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe Spree::MercadopagoController, type: :controller do
+  render_views
+
   describe '#ipn' do
     let(:operation_id) { 'op123' }
 
